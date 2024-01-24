@@ -22,15 +22,18 @@ namespace DesafioFundamentos.Models
 
             bool veiculoPodeSerEstacionado = true;
 
-            foreach(string cadaVeiculoEstacionado in veiculos ){
+            foreach(string cadaVeiculoEstacionado in veiculos )
+            {
 
-                if(placaVeiculo.Equals(cadaVeiculoEstacionado)){
+                if(placaVeiculo.Equals(cadaVeiculoEstacionado))
+                {
                     Console.WriteLine("Você não pode estacionar esse veículo porque ele já está estacionado");
                     veiculoPodeSerEstacionado = false;
                     
                 }
             }
-            if(veiculoPodeSerEstacionado){
+            if(veiculoPodeSerEstacionado)
+            {
                 veiculos.Add(placaVeiculo);
                 
             }
@@ -49,11 +52,22 @@ namespace DesafioFundamentos.Models
              
                 int horas;
                 do{
-                    try{
+                    try
+                    {
+                        
                         Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
-                        horas = Convert.ToInt32(Console.ReadLine());
-                    }catch(Exception){
+                        horas = Convert.ToInt32(Console.ReadLine());  
+                        if(horas<0)
+                        {
+                            throw new NumeroNegativoException("Erro, as horas não podem ser negativas");
+                        }
+                    }catch(FormatException)
+                    {
                         Console.WriteLine("As horas digitadas não é válida");
+                        continue;
+                    }catch(NumeroNegativoException erroNumNegativo)
+                    {
+                        Console.WriteLine(erroNumNegativo.Message);
                         continue;
                     }
                     break;
@@ -77,7 +91,8 @@ namespace DesafioFundamentos.Models
             {
                 Console.WriteLine("Os veículos estacionados são:");
 
-                foreach(string cadaVeiculoEstacionado in veiculos){
+                foreach(string cadaVeiculoEstacionado in veiculos)
+                {
                     Console.WriteLine($"{cadaVeiculoEstacionado}");
                 }
             }
